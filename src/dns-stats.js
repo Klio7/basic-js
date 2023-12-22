@@ -27,9 +27,19 @@ function getDNSStats(domains) {
   for (let i = 0; i < domains.length; i++) {
     newArray.push(domains[i].split(".").reverse());
   }
+  let myMap = new Map();
+  for (let i = 0; i < newArray.length; i++) {
+    for (let j = 0; j < newArray[i].length; j++) {
+      let key = newArray[i][j];
+      let value = myMap.get(key);
+      if (myMap.has(key)) {
+        value += 1;
+      }
+      myMap.set(key, value);
+    }
+  }
 
-  let set = new Set(newArray);
-  return newArray;
+  return myMap;
 }
 
 module.exports = {

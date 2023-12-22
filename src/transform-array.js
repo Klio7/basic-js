@@ -17,19 +17,26 @@ function transform(arr) {
   if (arr instanceof Array) {
     let finalArr = [];
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === "--discard-next") {
+      finalArr.push(arr[i]);
+    }
+    for (let i = 0; i < finalArr.length; i++) {
+      if (arr[i] === "--discard-next" && i !== arr.length - 1) {
         i + 1;
       }
-      if (arr[i] === "--discard-prev") {
+      if (arr[i] === "--discard-prev" && i !== 0) {
         finalArr.pop();
       }
-      if (arr[i] === "--double-next") {
-        finalArr.push(i + 1);
+      if (arr[i] === "--discard-prev" && i === 0) {
+        i + 1;
       }
-      if (arr[i] === "--double-prev") {
-        finalArr.push(i - 1);
+      if (arr[i] === "--double-next" && i !== arr.length - 1) {
+        finalArr.push(arr[i + 1]);
       }
-      finalArr.push(i);
+      if (arr[i] === "--double-prev" && i !== 0) {
+        finalArr.push(arr[i - 1]);
+      }
+
+      finalArr.push(arr[i]);
     }
     return finalArr;
   }

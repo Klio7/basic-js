@@ -25,21 +25,34 @@ const { NotImplementedError } = require("../extensions/index.js");
 function getDNSStats(domains) {
   let newArray = [];
   for (let i = 0; i < domains.length; i++) {
-    newArray.push(domains[i].split(".").reverse());
+    newArray.push(
+      domains[i]
+        .split(".")
+        .reverse()
+        .map((element) => `.${element}`)
+    );
   }
-  let myMap = new Map();
+  let tempArray = [];
   for (let i = 0; i < newArray.length; i++) {
+    let temp = "";
     for (let j = 0; j < newArray[i].length; j++) {
-      let key = newArray[i][j];
-      let value = myMap.get(key);
-      if (myMap.has(key)) {
-        value += 1;
+      if (j === 0) {
+        temp = newArray[i][j];
+        tempArray.push(newArray[i][j]);
+      } else {
+        tempArray.push(temp + newArray[i][j]);
+        temp = temp + newArray[i][j];
       }
-      myMap.set(key, value);
     }
   }
+  let flattenedArray = tempArray.flat();
+  let set = new Set(flattenedArray);
+  let object = {};
+  for (let key of set) {
+    object[key] = flattenedArray.filter((element) => element === key).length;
+  }
 
-  return myMap;
+  return object;
 }
 
 module.exports = {

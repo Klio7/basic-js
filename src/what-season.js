@@ -12,40 +12,20 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 function getSeason(date) {
-  console.log(date);
-  let year = date.getFullYear();
-  let month = date.getMonth();
-  let day = date.getDate();
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-  let milliseconds = date.getMilliseconds();
-  let newDate = new Date(
-    year,
-    month,
-    day,
-    hours,
-    minutes,
-    seconds,
-    milliseconds
-  );
-
-  return newDate;
-
   if (date === undefined) {
     return "Unable to determine the time of year!";
   }
   if (
-    Object.prototype.toString.call(date) === "[object Date]" &&
-    !isNaN(date)
+    Object.prototype.toString.call(date) !== "[object Date]" ||
+    date.hasOwnProperty("toString")
   ) {
-    let month = date.getMonth();
-
-    return ["winter", "spring", "summer", "autumn"][
-      Math.floor(((month + 1) % 12) / 3)
-    ];
+    throw new Error("Invalid date!");
   }
-  throw new Error("Invalid date!");
+
+  let month = date.getMonth();
+  return ["winter", "spring", "summer", "autumn"][
+    Math.floor(((month + 1) % 12) / 3)
+  ];
 }
 
 module.exports = {

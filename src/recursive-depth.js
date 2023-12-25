@@ -26,19 +26,6 @@ class DepthCalculator {
     return maxDepth + 1;
   }
 }
-/*let newArray = arr.flat(1);
-    let countNumber = 1;
-    const estimateCurrent = (current) => !Array.isArray(current);
-    if (newArray.every(estimateCurrent)) {
-      return countNumber;
-    } else {
-      for (let i = 0; i < newArray.length; i++) {
-        if (Array.isArray(newArray[i])) {
-          countNumber += this.calculateDepth(newArray[i]);
-        }
-      }
-      return countNumber;
-    }*/
 
 module.exports = {
   DepthCalculator,

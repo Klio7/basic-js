@@ -14,7 +14,19 @@ const { NotImplementedError } = require("../extensions/index.js");
  */
 class DepthCalculator {
   calculateDepth(arr) {
-    let newArray = arr.flat(1);
+    let maxDepth = 0;
+
+    arr.forEach((el) => {
+      if (Array.isArray(el)) {
+        let currentDepth = this.calculateDepth(el);
+        maxDepth = currentDepth > maxDepth ? currentDepth : maxDepth;
+      }
+    });
+
+    return maxDepth + 1;
+  }
+}
+/*let newArray = arr.flat(1);
     let countNumber = 1;
     const estimateCurrent = (current) => !Array.isArray(current);
     if (newArray.every(estimateCurrent)) {
@@ -26,9 +38,7 @@ class DepthCalculator {
         }
       }
       return countNumber;
-    }
-  }
-}
+    }*/
 
 module.exports = {
   DepthCalculator,

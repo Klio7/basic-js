@@ -29,15 +29,20 @@ function repeater(str, options) {
   } else {
     finalStr += array.join("+");
   }
-
-  /*let additionalArray = [];
+  let additionalArray = [];
   let additionalStr = "";
   if (options.hasOwnProperty("addition")) {
-    additionalStr = options.addition.repeat(additionRepeatTimes);
+    additionalArray.push (options.addition)
+  }
+    if (options.hasOwnProperty("addition") && options.hasOwnProperty("additionRepeatTimes")){
+      additionalArray.push(options.addition.repeat(options.additionRepeatTimes))
+    }
     if (options.hasOwnProperty("additionSeparator")) {
       additionalStr = additionalStr.split(options.additionSeparator).join("");
+    }else{
+      additionalArray = array.join("|");
     }
-  }*/
+  }
 
   return finalStr;
 }

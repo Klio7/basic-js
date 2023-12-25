@@ -12,10 +12,11 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 function getSeason(date) {
+  console.log(date);
   let year = date.getFullYear();
   let month = date.getMonth();
   let day = date.getDate();
-  let hours = date.getHours() + 3;
+  let hours = date.getHours();
   let minutes = date.getMinutes();
   let seconds = date.getSeconds();
   let milliseconds = date.getMilliseconds();
@@ -29,7 +30,7 @@ function getSeason(date) {
     milliseconds
   );
 
-  return newDate === date;
+  return newDate;
 
   if (date === undefined) {
     return "Unable to determine the time of year!";

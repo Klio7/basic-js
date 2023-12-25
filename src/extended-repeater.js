@@ -15,36 +15,25 @@ const { NotImplementedError } = require("../extensions/index.js");
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
+function getSubString(o) {
+  return Array(o.additionRepeatTimes)
+    .fill(String(o.addition))
+    .join(o.additionSeparator);
+}
+
 function repeater(str, options) {
-  let array = [];
-  let finalStr = "";
+  const defaultOptions = {
+    repeatTimes: 1,
+    separator: "+",
+    addition: "",
+    additionRepeatTimes: 1,
+    additionSeparator: "|",
+  };
+  const o = { ...defaultOptions, ...options };
 
-  if (options.hasOwnProperty("repeatTimes")) {
-    array = Array.from(Array(options.repeatTimes)).fill(str);
-  } else {
-    array.fill(str);
-  }
-  if (options.hasOwnProperty("separator")) {
-    finalStr += array.join(options.separator);
-  } else {
-    finalStr += array.join("+");
-  }
-  let additionalArray = [];
-  let additionalStr = "";
-  if (options.hasOwnProperty("addition")) {
-    additionalArray.push (options.addition)
-  }
-    if (options.hasOwnProperty("addition") && options.hasOwnProperty("additionRepeatTimes")){
-      additionalArray.push(options.addition.repeat(options.additionRepeatTimes))
-    }
-    if (options.hasOwnProperty("additionSeparator")) {
-      additionalStr = additionalStr.split(options.additionSeparator).join("");
-    }else{
-      additionalArray = array.join("|");
-    }
-  }
+  const mainSubString = str + getSubString(o);
 
-  return finalStr;
+  return Array(o.repeatTimes).fill(mainSubString).join(o.separator);
 }
 
 module.exports = {
